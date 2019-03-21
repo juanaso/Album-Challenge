@@ -3,6 +3,7 @@ package challenge.juanaso.com.albumchallenge.di.component
 import challenge.juanaso.com.albumchallenge.di.module.NetworkModule
 import challenge.juanaso.com.albumchallenge.viewmodel.DetailViewModel
 import challenge.juanaso.com.albumchallenge.viewmodel.MainViewModel
+import challenge.juanaso.com.albumchallenge.viewmodel.PhotosViewModel
 import dagger.Component
 import javax.inject.Singleton
 
@@ -18,6 +19,7 @@ interface ViewModelInjector {
      */
     fun inject(mainViewModel: MainViewModel)
     fun inject(detailViewModel: DetailViewModel)
+    fun inject(photosViewModel: PhotosViewModel)
 
     @Component.Builder
     interface Builder {

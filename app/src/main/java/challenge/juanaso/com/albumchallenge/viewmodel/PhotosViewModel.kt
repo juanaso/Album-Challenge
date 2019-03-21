@@ -1,16 +1,16 @@
-package challenge.juanaso.com.albumchallenge.ui.detail
+package challenge.juanaso.com.albumchallenge.viewmodel
 
 import android.arch.lifecycle.MutableLiveData
 import android.view.View
-import challenge.juanaso.com.albumchallenge.model.Album
 import challenge.juanaso.com.albumchallenge.network.RetrofitWebService
-import challenge.juanaso.com.albumchallenge.viewmodel.BaseViewModel
 import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
 import challenge.juanaso.com.albumchallenge.R
+import challenge.juanaso.com.albumchallenge.model.Photo
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class PhotosViewModel : BaseViewModel() {
+class PhotosViewModel(private val albumId :String): BaseViewModel() {
 
     @Inject
     lateinit var retrofitWebService: RetrofitWebService
@@ -19,7 +19,7 @@ class PhotosViewModel : BaseViewModel() {
 
     val loadingVisibility: MutableLiveData<Int> = MutableLiveData()
     val errorMessage: MutableLiveData<Int> = MutableLiveData()
-    val albumToShowContent: MutableLiveData<Album> = MutableLiveData()
+    val PhotoToShowDetail: MutableLiveData<Photo> = MutableLiveData()
     val swipeToRefreshVisibility: MutableLiveData<Boolean> = MutableLiveData()
     val errorClickListener = View.OnClickListener { loadPosts() }
 
@@ -28,7 +28,15 @@ class PhotosViewModel : BaseViewModel() {
     }
 
     fun loadPosts(){
-
+        subscription = retrofitWebService.getPhotos(albumId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe { onRetrievePostListStart() }
+                .doOnTerminate { onRetrievePostListFinish() }
+                .subscribe(
+                        { result -> onRetrievePostListSuccess(result) },
+                        { onRetrievePostListError() }
+                )
     }
 
     private fun onRetrievePostListStart(){
@@ -42,7 +50,7 @@ class PhotosViewModel : BaseViewModel() {
         swipeToRefreshVisibility.value = false
     }
 
-    private fun onRetrievePostListSuccess(albums:List<Album>){
+    private fun onRetrievePostListSuccess(photo:List<Photo>){
         //albumAdapter.updateAlbums(albums)
     }
 
@@ -56,8 +64,8 @@ class PhotosViewModel : BaseViewModel() {
         subscription.dispose()
     }
 
-    private fun onItemClick(album: Album){
-        albumToShowContent.value = album
+    private fun onItemClick(photo: Photo){
+        PhotoToShowDetail.value = photo
     }
 }
 

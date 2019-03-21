@@ -1,7 +1,9 @@
 package challenge.juanaso.com.albumchallenge.model
 
-class Album {
+class Photo{
     var id:String? = null
-    var userId:String? = null
+    var albumId:String? = null
     var title:String? = null
+    var url:String? = null
+    var thumbnailUrl:String? = null
 }

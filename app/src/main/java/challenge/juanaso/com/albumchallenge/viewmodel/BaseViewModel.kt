@@ -23,6 +23,7 @@ abstract class BaseViewModel: ViewModel(){
         when (this) {
             is MainViewModel -> injector.inject(this)
             is DetailViewModel -> injector.inject(this)
+            is PhotosViewModel -> injector.inject(this)
         }
     }
 }
