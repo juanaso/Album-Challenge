@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fresco="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="viewModel"
+            type="challenge.juanaso.com.albumchallenge.viewmodel.PhotoItemViewModel" />
+    </data>
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="150dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:elevation="10dp">
+
+        <ImageView
+            android:id="@+id/home_row_imageHolder"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_launcher_background"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:photoUrl="@{viewModel.getThumbnailUrl()}"
+            app:layout_constraintTop_toBottomOf="@+id/title"
+            fresco:placeholderImage="@mipmap/ic_launcher_round" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:mutableText="@{viewModel.getTitle()}" />
+    </android.support.constraint.ConstraintLayout>
+</layout>

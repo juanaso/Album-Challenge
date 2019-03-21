@@ -6,6 +6,7 @@ import challenge.juanaso.com.albumchallenge.network.RetrofitWebService
 import io.reactivex.disposables.Disposable
 import challenge.juanaso.com.albumchallenge.R
 import challenge.juanaso.com.albumchallenge.model.Photo
+import challenge.juanaso.com.albumchallenge.ui.photos.PhotosAdapter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
@@ -17,6 +18,7 @@ class PhotosViewModel(private val albumId :String): BaseViewModel() {
 
     private lateinit var subscription: Disposable
 
+    val photosAdapter: PhotosAdapter = PhotosAdapter( { photo : Photo -> onItemClick(photo) })
     val loadingVisibility: MutableLiveData<Int> = MutableLiveData()
     val errorMessage: MutableLiveData<Int> = MutableLiveData()
     val PhotoToShowDetail: MutableLiveData<Photo> = MutableLiveData()
@@ -50,8 +52,8 @@ class PhotosViewModel(private val albumId :String): BaseViewModel() {
         swipeToRefreshVisibility.value = false
     }
 
-    private fun onRetrievePostListSuccess(photo:List<Photo>){
-        //albumAdapter.updateAlbums(albums)
+    private fun onRetrievePostListSuccess(photos:List<Photo>){
+        photosAdapter.updatePhotos(photos)
     }
 
     private fun onRetrievePostListError(){
