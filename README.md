@@ -1,4 +1,4 @@
-# Album-Challenge-
+# Album-Challenge
 Album View made with the following technologies
 
 Retrofit
