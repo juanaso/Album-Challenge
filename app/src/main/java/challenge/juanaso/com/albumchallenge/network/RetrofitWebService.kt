@@ -16,8 +16,7 @@ interface RetrofitWebService {
     /**
      * Get the list of the pots from the API
      */
-    @GET("/contacts")
-    fun getUsers():Observable<List<User>>
+
 
     @GET("/albums")
     fun getAlbums():Observable<List<Album>>
@@ -25,6 +24,6 @@ interface RetrofitWebService {
     @GET("/photos")
     fun getPhotos(@Query("albumId") albumId : String):Observable<List<Photo>>
 
-    @GET("/contacts/{id}")
-    fun getUser(@Path("id") user: String): Observable<User>
+    @GET("/photos/{id}")
+    fun getPhoto(@Path("id") photoId: String): Observable<Photo>
 }

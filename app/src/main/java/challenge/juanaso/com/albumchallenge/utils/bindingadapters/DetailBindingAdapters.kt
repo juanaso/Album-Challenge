@@ -10,25 +10,26 @@ import challenge.juanaso.com.albumchallenge.R
 import android.support.v7.app.AppCompatActivity
 import android.widget.ImageView
 import android.widget.TextView
+import challenge.juanaso.com.albumchallenge.model.Photo
 import challenge.juanaso.com.albumchallenge.model.User
 import challenge.juanaso.com.albumchallenge.utils.extension.getParentActivity
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.github.twocoffeesoneteam.glidetovectoryou.GlideToVectorYou
 
-@BindingAdapter("userPhotoUrl")
-fun setUserPhotoUrl(view: ImageView, user: MutableLiveData<User>?) {
+@BindingAdapter("photoUrl")
+fun setPhotoUrl(view: ImageView, photo: MutableLiveData<Photo>?) {
     val parentActivity: AppCompatActivity? = view.getParentActivity()
     if(parentActivity != null) {
-        user?.observe(parentActivity, Observer { value ->
-            if (!user.value?.photoUrl!!.endsWith(".svg")) {
+        photo?.observe(parentActivity, Observer { value ->
+            if (!photo.value?.url!!.endsWith(".svg")) {
                 val options = RequestOptions()
                         .centerCrop()
                         .placeholder(R.mipmap.ic_launcher_round)
                         .error(R.mipmap.ic_launcher_round)
-                Glide.with(parentActivity).load(value?.photoUrl).apply(options).into(view)
+                Glide.with(parentActivity).load(value?.url).apply(options).into(view)
             }else {
-                GlideToVectorYou.justLoadImage(parentActivity, Uri.parse(user.value?.photoUrl), view)
+                GlideToVectorYou.justLoadImage(parentActivity, Uri.parse(photo.value?.url), view)
             }
         })
     }
@@ -77,29 +78,28 @@ fun setUserAddresses(view: TextView, user: MutableLiveData<User>?) {
     }
 }
 
-@BindingAdapter("userOtherInfo")
-fun setUserOtherInfo(view: TextView, user: MutableLiveData<User>?) {
+@BindingAdapter("photoData")
+fun setPhotoData(view: TextView, photo: MutableLiveData<Photo>?) {
     val parentActivity: AppCompatActivity? = view.getParentActivity()
     if (parentActivity != null) {
-        user?.observe(parentActivity, Observer { value ->
-            val address = user.value?.addresses!![0]
+        photo?.observe(parentActivity, Observer { value ->
             val stringBuilder = StringBuilder()
-            stringBuilder.append(value?.getIdFormated())
+            stringBuilder.append("Album id: "+value?.albumId)
             stringBuilder.append(System.getProperty("line.separator"))
-            stringBuilder.append(value?.getBirthdayFormated())
+            stringBuilder.append("Photo id: "+value?.id)
             stringBuilder.append(System.getProperty("line.separator"))
-            stringBuilder.append(value?.getCreatedDateFormated())
+            stringBuilder.append("photo id: "+value?.title)
             view.text = stringBuilder.toString()
         })
     }
 }
 
 @BindingAdapter("collapsingToolbarTittle")
-fun setCollapsingToolbarTittle(view:CollapsingToolbarLayout, user: MutableLiveData<User>?){
+fun setCollapsingToolbarTittle(view:CollapsingToolbarLayout, photo: MutableLiveData<Photo>?){
     val parentActivity:AppCompatActivity? = view.getParentActivity()
     if(parentActivity!=null){
-        user?.observe(parentActivity,Observer{ value ->
-            view.title = value?.fullName
+        photo?.observe(parentActivity,Observer{ value ->
+            view.title = value?.title
         })
     }
 }

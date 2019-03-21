@@ -13,6 +13,8 @@ import android.view.ViewGroup
 
 import challenge.juanaso.com.albumchallenge.R
 import challenge.juanaso.com.albumchallenge.databinding.FragmentDetailBinding
+import challenge.juanaso.com.albumchallenge.model.Photo
+import challenge.juanaso.com.albumchallenge.utils.PHOTO
 import challenge.juanaso.com.albumchallenge.utils.USER_ID
 import challenge.juanaso.com.albumchallenge.viewmodel.DetailViewModel
 import kotlinx.android.synthetic.main.fragment_detail.*
@@ -20,7 +22,7 @@ import kotlinx.android.synthetic.main.fragment_detail.*
 
 class DetailFragment : Fragment(), FragmentManager.OnBackStackChangedListener,AppBarLayout.OnOffsetChangedListener {
 
-    private var userId: String? = null
+    private var photo: Photo? = null
 
     private lateinit var viewModel: DetailViewModel
     private lateinit var binding: FragmentDetailBinding
@@ -32,9 +34,9 @@ class DetailFragment : Fragment(), FragmentManager.OnBackStackChangedListener,Ap
         // Inflate the layout for this fragment
         binding =  DataBindingUtil.inflate(inflater, R.layout.fragment_detail, container, false)
         arguments?.let {
-            userId = it.getString(USER_ID)
+            photo = it.getParcelable(PHOTO)
         }
-        viewModel = DetailViewModel(userId!!)
+        viewModel = DetailViewModel(photo!!)
         binding.viewModel = viewModel
         return binding.root
     }
@@ -54,7 +56,7 @@ class DetailFragment : Fragment(), FragmentManager.OnBackStackChangedListener,Ap
     }
 
     private fun setSwipeToRefresh() {
-        detail_swipeRefresh.setOnRefreshListener{viewModel.loadUser()}
+        detail_swipeRefresh.setOnRefreshListener{viewModel.loadPhoto()}
     }
 
     override fun onOffsetChanged(appBarLayout: AppBarLayout, verticalOffset: Int) {

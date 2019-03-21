@@ -36,7 +36,7 @@
             app:layout_constraintEnd_toEndOf="parent" />
 
         <android.support.v4.widget.SwipeRefreshLayout
-            android:id="@+id/main_swipeRefresh"
+            android:id="@+id/swipeRefresh"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:swipeToRefreshVisibility="@{viewModel.getSwipeToRefreshVisibility()}"

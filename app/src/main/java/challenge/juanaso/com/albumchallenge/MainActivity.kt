@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun navigateToUserDetail(bundle: Bundle){
+    fun navigateToPhotoDetail(bundle: Bundle){
         val detailFragment = DetailFragment.newInstance()
         detailFragment.arguments = bundle
         replaceFragment(detailFragment, R.id.container)

@@ -2,6 +2,7 @@ package challenge.juanaso.com.albumchallenge.viewmodel
 
 import android.arch.lifecycle.MutableLiveData
 import android.view.View
+import challenge.juanaso.com.albumchallenge.model.Photo
 import challenge.juanaso.com.albumchallenge.model.User
 import challenge.juanaso.com.albumchallenge.network.RetrofitWebService
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -9,22 +10,24 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class DetailViewModel(private val id :String): BaseViewModel(){
+class DetailViewModel(private val photo: Photo): BaseViewModel(){
 
     @Inject
     lateinit var retrofitWebService: RetrofitWebService
 
     private lateinit var subscription: Disposable
 
-    val currentUser: MutableLiveData<User> = MutableLiveData()
+    val currentPhoto: MutableLiveData<Photo> = MutableLiveData()
     val loadingVisibility: MutableLiveData<Int> = MutableLiveData()
     val swipeToRefreshVisibility: MutableLiveData<Boolean> = MutableLiveData()
     init {
-        loadUser()
+        currentPhoto.value = photo
+        loadingVisibility.value = View.GONE
+        swipeToRefreshVisibility.value = false
     }
 
-    fun loadUser() {
-        subscription = retrofitWebService.getUser(id)
+    fun loadPhoto() {
+        subscription = retrofitWebService.getPhoto(currentPhoto.value?.id!!)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe { onRetrievePostListStart() }
@@ -44,8 +47,8 @@ class DetailViewModel(private val id :String): BaseViewModel(){
         swipeToRefreshVisibility.value = false
     }
 
-    private fun onRetrievePostListSuccess(user: User){
-        currentUser.value = user
+    private fun onRetrievePostListSuccess(photo: Photo){
+        currentPhoto.value = photo
     }
 
     private fun onRetrievePostListError(){
