@@ -9,6 +9,7 @@ import challenge.juanaso.com.albumchallenge.model.User
 import challenge.juanaso.com.albumchallenge.network.RetrofitWebService
 import challenge.juanaso.com.albumchallenge.persistence.AppDatabase
 import challenge.juanaso.com.albumchallenge.ui.main.AlbumAdapter
+import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
@@ -33,30 +34,18 @@ class MainViewModel(private val appDatabase: AppDatabase) : BaseViewModel() {
     }
 
     fun loadPosts(){
-        /*
-        var userDao = appDatabase.userDao()
-        subscription = Observable.fromCallable { userDao.all }
+        var albumDao = appDatabase.albumDao()
+        subscription = Observable.fromCallable { albumDao.all }
                 .concatMap {
-                    dbUserList ->
-                    if(dbUserList.isEmpty())
-                        retrofitWebService.getUsers().concatMap {
-                            apiUsers-> userDao.insertAll(apiUsers)
-                            Observable.just(apiUsers)
+                    dbAlbumList ->
+                    if(dbAlbumList.isEmpty())
+                        retrofitWebService.getAlbums().concatMap {
+                            apiAlbum-> albumDao.insertAll(apiAlbum)
+                            Observable.just(apiAlbum)
                         }
                     else
-                        Observable.just(dbUserList)
+                        Observable.just(dbAlbumList)
                 }
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnSubscribe { onRetrievePostListStart() }
-                .doOnTerminate { onRetrievePostListFinish() }
-                .subscribe(
-                        { result -> onRetrievePostListSuccess(result) },
-                        { onRetrievePostListError() }
-                )
-                */
-
-        subscription = retrofitWebService.getAlbums()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe { onRetrievePostListStart() }
@@ -83,6 +72,7 @@ class MainViewModel(private val appDatabase: AppDatabase) : BaseViewModel() {
     }
 
     private fun onRetrievePostListError(){
+        if(albumAdapter.itemCount<1)
         errorMessage.value = R.string.post_error
 
     }

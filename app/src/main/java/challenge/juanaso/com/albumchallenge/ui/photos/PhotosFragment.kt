@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.support.annotation.StringRes
 import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.GridLayoutManager
 import android.view.LayoutInflater
 import android.view.View
@@ -58,7 +59,15 @@ class PhotosFragment : Fragment() {
         viewModel.errorMessage.observe(this, Observer {
             errorMessage -> if(errorMessage != null) showError(errorMessage) else hideError()
         })
+        setToolbar()
         swipeRefresh.setOnRefreshListener{viewModel.loadPosts()}
+    }
+
+    private fun setToolbar() {
+        photo_toolbar.navigationIcon = ContextCompat.getDrawable(activity!!.applicationContext, R.drawable.ic_arrow_back)
+        photo_toolbar.setNavigationOnClickListener {
+            activity!!.onBackPressed()
+        }
     }
 
     private fun hideError(){

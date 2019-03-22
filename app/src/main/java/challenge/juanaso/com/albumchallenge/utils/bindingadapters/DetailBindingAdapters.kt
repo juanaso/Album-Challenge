@@ -35,49 +35,6 @@ fun setPhotoUrl(view: ImageView, photo: MutableLiveData<Photo>?) {
     }
 }
 
-@BindingAdapter("userName")
-fun setUserName(view: TextView, user: MutableLiveData<User>?) {
-    val parentActivity:AppCompatActivity? = view.getParentActivity()
-    if(parentActivity != null) {
-        user?.observe(parentActivity, Observer { value -> view.text =  value?.fullName})
-    }
-}
-
-@BindingAdapter("userPhones")
-fun setUserPhones(view: TextView, user: MutableLiveData<User>?) {
-    val parentActivity:AppCompatActivity? = view.getParentActivity()
-    if(parentActivity != null) {
-        user?.observe(parentActivity, Observer { value ->
-            val stringBuilder = StringBuilder()
-            for (phone in user.value?.phones!!) {
-                if (phone.number != null) {
-                    stringBuilder.append(phone.numberOrdered())
-                    stringBuilder.append(System.getProperty("line.separator"))
-                }
-            }
-            view.text = stringBuilder.toString()
-        })
-    }
-}
-
-@BindingAdapter("userAddresses")
-fun setUserAddresses(view: TextView, user: MutableLiveData<User>?) {
-    val parentActivity: AppCompatActivity? = view.getParentActivity()
-    if (parentActivity != null) {
-        user?.observe(parentActivity, Observer { value ->
-            val address = user.value?.addresses!![0]
-            val stringBuilder = StringBuilder()
-            if (address.home != null) {
-                stringBuilder.append(address.getHomeDetailed())
-                stringBuilder.append(System.getProperty("line.separator"))
-            }
-            if (address.work != null)
-                stringBuilder.append(address.getWorkDetailed())
-            view.text = stringBuilder.toString()
-        })
-    }
-}
-
 @BindingAdapter("photoData")
 fun setPhotoData(view: TextView, photo: MutableLiveData<Photo>?) {
     val parentActivity: AppCompatActivity? = view.getParentActivity()
