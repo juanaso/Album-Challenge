@@ -7,8 +7,11 @@ import android.os.Bundle
 import android.support.annotation.StringRes
 import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.SearchView
 import android.view.*
+import android.view.inputmethod.EditorInfo
 import challenge.juanaso.com.albumchallenge.MainActivity
 import challenge.juanaso.com.albumchallenge.R
 import challenge.juanaso.com.albumchallenge.databinding.MainFragmentBinding
@@ -30,6 +33,9 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setSwipeToRefresh()
+        (activity as AppCompatActivity).setSupportActionBar(toolbar)
+        toolbar.inflateMenu(R.menu.user_menu)
+        this.setHasOptionsMenu(true)
         viewModel.loadPosts()
     }
 
@@ -68,5 +74,21 @@ class MainFragment : Fragment() {
 
     private fun hideError(){
         errorSnackbar?.dismiss()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+        inflater!!.inflate(R.menu.user_menu, menu)
+        val searchItem = menu!!.findItem(R.id.action_search)
+        val searchView = searchItem.actionView as SearchView
+        searchView.imeOptions = EditorInfo.IME_ACTION_DONE
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+            override fun onQueryTextChange(newText: String?): Boolean {
+                viewModel.albumAdapter.filter.filter(newText)
+                return false
+            }
+        })
     }
 }

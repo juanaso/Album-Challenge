@@ -51,8 +51,7 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 app:adapter="@{viewModel.getPhotosAdapter()}"
-                app:layoutManager="android.support.v7.widget.GridLayoutManager"
-                app:spanCount="3"
+                app:layoutManager="android.support.v7.widget.LinearLayoutManager"
                 android:orientation="vertical"
                 tools:listitem="@layout/photo_item"/>
         </android.support.v4.widget.SwipeRefreshLayout>

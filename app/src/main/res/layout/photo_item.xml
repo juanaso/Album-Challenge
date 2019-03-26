@@ -7,38 +7,51 @@
             name="viewModel"
             type="challenge.juanaso.com.albumchallenge.viewmodel.PhotoItemViewModel" />
     </data>
+
     <android.support.constraint.ConstraintLayout
-        android:layout_width="wrap_content"
-        android:layout_height="150dp"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:elevation="10dp">
+        android:layout_marginBottom="10dp">
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent=".33"/>
 
         <ImageView
             android:id="@+id/home_row_imageHolder"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:scaleType="centerInside"
-            android:src="@drawable/ic_launcher_background"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             app:photoUrl="@{viewModel.getThumbnailUrl()}"
-            app:layout_constraintTop_toBottomOf="@+id/title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/guideline"
             fresco:placeholderImage="@mipmap/ic_launcher_round" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ID"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:mutableText="@{viewModel.getId()}" />
 
         <TextView
             android:id="@+id/title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginBottom="8dp"
+            android:textSize="15dp"
             android:text="title"
-            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginLeft="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guideline"
             app:mutableText="@{viewModel.getTitle()}" />
     </android.support.constraint.ConstraintLayout>
 </layout>

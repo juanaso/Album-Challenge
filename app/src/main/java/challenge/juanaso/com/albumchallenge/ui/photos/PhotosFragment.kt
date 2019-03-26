@@ -8,6 +8,7 @@ import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.GridLayoutManager
+import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -46,7 +47,7 @@ class PhotosFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        recycler.layoutManager = GridLayoutManager(activity,3)
+        recycler.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
 
         viewModel.PhotoToShowDetail.observe(this, Observer {
             if(it!=null){
