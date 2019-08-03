@@ -48,7 +48,7 @@ class MainFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.main_fragment, container, false)
 
         this.setHasOptionsMenu(true)
-        viewModel =   ViewModelProviders.of(this, ViewModelFactory(this.activity!!)).get(MainViewModel::class.java)
+        viewModel = MainViewModel()
         binding.userRecycler.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         viewModel.errorMessage.observe(this, Observer {
             errorMessage -> if(errorMessage != null) showError(errorMessage) else hideError()

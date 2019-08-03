@@ -1,17 +1,12 @@
 package challenge.juanaso.com.albumchallenge.viewmodel
 
 import android.arch.lifecycle.ViewModel
-import challenge.juanaso.com.albumchallenge.di.component.DaggerViewModelInjector
-import challenge.juanaso.com.albumchallenge.di.component.ViewModelInjector
+import challenge.juanaso.com.albumchallenge.AlbumChallengeAplication
+import challenge.juanaso.com.albumchallenge.di.component.AppComponent
 import challenge.juanaso.com.albumchallenge.di.module.NetworkModule
 
 abstract class BaseViewModel: ViewModel(){
 
-
-    private val injector: ViewModelInjector = DaggerViewModelInjector
-            .builder()
-            .networkModule(NetworkModule)
-            .build()
     init {
         inject()
     }
@@ -21,9 +16,9 @@ abstract class BaseViewModel: ViewModel(){
      */
     private fun inject() {
         when (this) {
-            is MainViewModel -> injector.inject(this)
-            is DetailViewModel -> injector.inject(this)
-            is PhotosViewModel -> injector.inject(this)
+            is MainViewModel ->   AlbumChallengeAplication.appComponent.inject(this)
+            is DetailViewModel -> AlbumChallengeAplication.appComponent.inject(this)
+            is PhotosViewModel -> AlbumChallengeAplication.appComponent.inject(this)
         }
     }
 }

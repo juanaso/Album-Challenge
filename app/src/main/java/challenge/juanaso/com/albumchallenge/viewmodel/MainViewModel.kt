@@ -15,10 +15,13 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class MainViewModel(private val appDatabase: AppDatabase) : BaseViewModel() {
+class MainViewModel : BaseViewModel() {
 
     @Inject
     lateinit var retrofitWebService: RetrofitWebService
+
+    @Inject
+    lateinit var dataBase: AppDatabase
 
     private lateinit var subscription: Disposable
 
@@ -34,7 +37,7 @@ class MainViewModel(private val appDatabase: AppDatabase) : BaseViewModel() {
     }
 
     fun loadPosts(){
-        var albumDao = appDatabase.albumDao()
+        var albumDao = dataBase.albumDao()
         subscription = Observable.fromCallable { albumDao.all }
                 .concatMap {
                     dbAlbumList ->
