@@ -15,7 +15,6 @@ import android.view.inputmethod.EditorInfo
 import challenge.juanaso.com.albumchallenge.MainActivity
 import challenge.juanaso.com.albumchallenge.R
 import challenge.juanaso.com.albumchallenge.databinding.MainFragmentBinding
-import challenge.juanaso.com.albumchallenge.di.ViewModelFactory
 import challenge.juanaso.com.albumchallenge.utils.ALBUM_ID
 import challenge.juanaso.com.albumchallenge.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.main_fragment.*

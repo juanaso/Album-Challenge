@@ -1,13 +1,13 @@
 package challenge.juanaso.com.albumchallenge.di.module
 
 import android.content.Context
-import challenge.juanaso.com.albumchallenge.AlbumChallengeAplication
+import challenge.juanaso.com.albumchallenge.AlbumChallengeApplication
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
 
 @Module
-class AppModule(private val albumChallengeAplication: AlbumChallengeAplication) {
+class AppModule(private val albumChallengeAplication: AlbumChallengeApplication) {
 
     @Provides
     @Singleton

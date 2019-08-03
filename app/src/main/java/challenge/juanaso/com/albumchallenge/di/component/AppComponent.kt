@@ -6,6 +6,7 @@ import challenge.juanaso.com.albumchallenge.di.module.NetworkModule
 import challenge.juanaso.com.albumchallenge.di.module.RemoteModule
 import challenge.juanaso.com.albumchallenge.di.module.RoomModule
 import challenge.juanaso.com.albumchallenge.ui.main.MainFragment
+import challenge.juanaso.com.albumchallenge.viewmodel.BaseViewModel
 import challenge.juanaso.com.albumchallenge.viewmodel.DetailViewModel
 import challenge.juanaso.com.albumchallenge.viewmodel.MainViewModel
 import challenge.juanaso.com.albumchallenge.viewmodel.PhotosViewModel
@@ -25,8 +26,8 @@ interface AppComponent {
 
     fun inject(mainActivity: MainActivity)
     fun inject(mainFragment: MainFragment)
-
-
+    
+    fun inject(baseViewModel: BaseViewModel)
     fun inject(mainViewModel: MainViewModel)
     fun inject(detailViewModel: DetailViewModel)
     fun inject(photosViewModel: PhotosViewModel)

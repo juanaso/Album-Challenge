@@ -8,7 +8,7 @@ import challenge.juanaso.com.albumchallenge.di.module.NetworkModule
 import challenge.juanaso.com.albumchallenge.di.module.RemoteModule
 import challenge.juanaso.com.albumchallenge.di.module.RoomModule
 
-class AlbumChallengeAplication : Application() {
+class AlbumChallengeApplication : Application() {
 
     companion object {
         lateinit var appComponent: AppComponent
@@ -20,7 +20,6 @@ class AlbumChallengeAplication : Application() {
     }
 
     fun initializeDagger() {
-
         appComponent = DaggerAppComponent
                 .builder()
                 .appModule(AppModule(this))
