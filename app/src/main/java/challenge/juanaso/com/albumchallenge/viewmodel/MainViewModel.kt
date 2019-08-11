@@ -1,6 +1,7 @@
 package challenge.juanaso.com.albumchallenge.viewmodel
 
 import android.arch.lifecycle.MutableLiveData
+import android.content.Context
 import android.view.View
 import challenge.juanaso.com.albumchallenge.R
 import challenge.juanaso.com.albumchallenge.model.Album
@@ -15,7 +16,8 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class MainViewModel : BaseViewModel() {
+
+class MainViewModel @Inject constructor(): BaseViewModel() {
 
     @Inject
     lateinit var retrofitWebService: RetrofitWebService

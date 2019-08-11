@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
 
     fun navigateToPhotos(bundle: Bundle){
         val photosFragment = PhotosFragment.newInstance()
-        photosFragment .arguments = bundle
+        photosFragment.arguments = bundle
         replaceFragment(photosFragment , R.id.container)
     }
 }
